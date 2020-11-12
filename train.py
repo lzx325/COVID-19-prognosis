@@ -13,8 +13,9 @@ import sklearn.model_selection
 
 def weighted_l2_loss(pred,gt,weight=None,reduction=True):
     assert pred.shape==gt.shape
+    device=pred.device
     if  weight  is None:
-        weight=torch.ones((pred.shape[1],))
+        weight=torch.ones((pred.shape[1],)).to(device)
     else:
         assert len(weight)==pred.shape[1]
     if reduction:

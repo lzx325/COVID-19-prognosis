@@ -76,6 +76,8 @@ def cross_validation_loop(X,Y,leave_out=5):
         Y_test=Y[test_indices,:]
 
         net=model.FCModel(n_in_features=X.shape[1],n_out_features=Y.shape[1])
+        device='cuda:0' if torch.cuda.is_available() else "cpu"
+        net=net.to(device)
         params={
             'n_epoch':200,
             'lr':1e-2,
@@ -102,6 +104,8 @@ def permutation_loop(X,Y,permutation_times=10):
         X_train,X_test,Y_train,Y_test=sklearn.model_selection.train_test_split(X,Y,test_size=0.25)
     
         net=model.FCModel(n_in_features=X.shape[1],n_out_features=Y.shape[1])
+        device='cuda:0' if torch.cuda.is_available() else "cpu"
+        net=net.to(device)
         params={
             'n_epoch':200,
             'lr':1e-2,
